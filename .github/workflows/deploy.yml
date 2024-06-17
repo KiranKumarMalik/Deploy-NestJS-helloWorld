@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
@@ -18,25 +18,16 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Download from GitHub
+        run: git clone https://github.com/KiranKumarMalik/Deploy-NestJS-helloWorld.git
+
+      - name: Navigate to directory
+        run: cd Deploy-NestJS-helloWorld
+        
       - name: Install dependencies
         run: npm install
 
       - name: Run tests
         run: npm test
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Deploy to EC2
-        uses: appleboy/ssh-action@v0.1.5
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_KEY }}
-          script: |
-            cd /path/to/your/repo
-            git pull
-            npm install
-            npm run start:prod
+  
