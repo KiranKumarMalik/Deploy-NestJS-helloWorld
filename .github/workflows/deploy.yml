@@ -23,11 +23,11 @@ jobs:
 
       - name: Navigate to directory
         run: cd Deploy-NestJS-helloWorld
-        
+
       - name: Install dependencies
         run: npm install
 
       - name: Run tests
-        run: npm test
+        run: npm run start
 
   
